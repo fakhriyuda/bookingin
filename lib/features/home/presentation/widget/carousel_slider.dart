@@ -65,124 +65,120 @@ class CarouselSliders extends StatelessWidget {
     String dateString = DateFormat('dd MMM yyyy').format(timeNow);
     return showModalBottomSheet(
         context: context,
+        isScrollControlled: true,
         builder: (context) {
-          return Wrap(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: 100,
-                      child: Row(
-                        children: [
-                          ClipRRect(
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(16)),
-                            child: Image.asset(
-                              homeData.image,
-                              height: 100,
-                              width: 100,
-                              fit: BoxFit.cover,
-                              cacheHeight: 200,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 8.0, horizontal: 16),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  homeData.roomName,
-                                  style: TextStyle(
-                                      color: ColorB.gold,
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                Text(
-                                  homeData.detailLocation,
-                                  style: TextStyle(color: ColorB.greySoft),
-                                ),
-                                Expanded(child: Container()),
-                                Text(
-                                  dateString,
-                                  style: TextStyle(
-                                    color: ColorB.greySoft,
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.only(top: 16, bottom: 8.0),
-                      child: Text("Facilities"),
-                    ),
-                    SizedBox(
-                      height: 100,
-                      child: ListView.builder(
-                          shrinkWrap: true,
-                          scrollDirection: Axis.horizontal,
-                          itemCount: homeData.facilities.length,
-                          itemBuilder: (context, index) {
-                            return facilityItem(homeData.facilities[index]);
-                          }),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.only(top: 8, bottom: 8.0),
-                      child: Text("Availability"),
-                    ),
-                    SizedBox(
-                      height: 40,
-                      child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: homeData.hours.length,
-                          itemBuilder: (contect, index) {
-                            return Card(
-                              color: homeData.hours[index].booked
-                                  ? ColorB.yellow
-                                  : ColorB.greyLight,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              child: Container(
-                                  padding: const EdgeInsets.all(4),
-                                  alignment: Alignment.center,
-                                  child: Text(homeData.hours[index].hour)),
-                            );
-                          }),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(top: 16),
-                      alignment: Alignment.centerRight,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const BookedPage()));
-                        },
-                        style: ElevatedButton.styleFrom(
-                          foregroundColor: Colors.white,
-                          backgroundColor: ColorB.brown,
-                          minimumSize: const Size(88, 36),
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
-                          shape: const RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(100)),
-                          ),
+          return Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Wrap(
+              children: [
+                SizedBox(
+                  height: 100,
+                  child: Row(
+                    children: [
+                      ClipRRect(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(16)),
+                        child: Image.asset(
+                          homeData.image,
+                          height: 100,
+                          width: 100,
+                          fit: BoxFit.cover,
+                          cacheHeight: 200,
                         ),
-                        child: const Text("Book"),
                       ),
-                    )
-                  ],
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 8.0, horizontal: 16),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              homeData.roomName,
+                              style: TextStyle(
+                                  color: ColorB.gold,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            Text(
+                              homeData.detailLocation,
+                              style: TextStyle(color: ColorB.greySoft),
+                            ),
+                            Expanded(child: Container()),
+                            Text(
+                              dateString,
+                              style: TextStyle(
+                                color: ColorB.greySoft,
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+                const Padding(
+                  padding: EdgeInsets.only(top: 16, bottom: 8.0),
+                  child: Text("Facilities"),
+                ),
+                SizedBox(
+                  height: 90,
+                  width: double.infinity,
+                  child: ListView.builder(
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      itemCount: homeData.facilities.length,
+                      itemBuilder: (context, index) {
+                        return facilityItem(homeData.facilities[index]);
+                      }),
+                ),
+                const Padding(
+                  padding: EdgeInsets.only(top: 8, bottom: 8.0),
+                  child: Text("Availability"),
+                ),
+                SizedBox(
+                  height: 40,
+                  child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: homeData.hours.length,
+                      itemBuilder: (contect, index) {
+                        return Card(
+                          color: homeData.hours[index].booked
+                              ? ColorB.yellow
+                              : ColorB.greyLight,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                          child: Container(
+                              padding: const EdgeInsets.all(4),
+                              alignment: Alignment.center,
+                              child: Text(homeData.hours[index].hour)),
+                        );
+                      }),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(top: 16),
+                  alignment: Alignment.centerRight,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const BookedPage()));
+                    },
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.white,
+                      backgroundColor: ColorB.brown,
+                      minimumSize: const Size(88, 36),
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(100)),
+                      ),
+                    ),
+                    child: const Text("Book"),
+                  ),
+                )
+              ],
+            ),
           );
         });
   }
